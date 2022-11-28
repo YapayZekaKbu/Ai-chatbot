@@ -31,7 +31,7 @@ for step in range(5):
         pad_token_id=tokenizer.eos_token_id
     )
     ######################### DO NOT CHANGE#########################
-    #Hello World
+   
 
     ### Kullanici gramer duzeltme islemini belirtmedi ise, bu output degismeyecek
     ### If the user did not specify the grammar correction command, this is our output 
