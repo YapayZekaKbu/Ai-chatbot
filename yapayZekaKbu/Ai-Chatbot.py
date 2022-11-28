@@ -8,7 +8,7 @@ model_name = "microsoft/DialoGPT-medium"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 ######################### DO NOT CHANGE#########################
-#Hello World
+
 ## for dongusunu silmeyin ##
 ## Do not remove the for loop ##
 for step in range(5):
