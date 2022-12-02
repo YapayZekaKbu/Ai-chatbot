@@ -2,7 +2,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
+#deneme
 ######################### DO NOT CHANGE#########################
 model_name = "microsoft/DialoGPT-medium"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
