@@ -44,3 +44,5 @@ for step in range(5):
     #### Output'u metin olarak değil, ses olarak cikartacagiz
     #### We will display the output as a voice not as a text 
     print(f"DialoGPT: {output}")
+
+    ## DENEME ##
