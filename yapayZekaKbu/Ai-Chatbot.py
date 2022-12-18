@@ -1,3 +1,26 @@
+import speech_recognition as sr
+import pyttsx3
+
+r = sr.Recognizer()
+
+
+def speechToText():
+    try:
+        with sr.Microphone() as source2:
+            r.adjust_for_ambient_noise(source2, duration=0.2)
+            print("start speaking\n Listening... ")
+            audio2 = r.listen(source2)
+            MyText = r.recognize_google(audio2)
+            MyText = MyText.lower()
+            return MyText
+    except sr.RequestError as e:
+        return ("Could not request results; {0}".format(e))
+
+    except sr.UnknownValueError:
+        return "unknown error occurred"
+    
+    
+    
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import os
@@ -16,8 +39,16 @@ for step in range(5):
 
     ### Burada, cümleyi kullanıcıdan yazarak aliyoruz ama biz mikrofondan alacağız sonra tekrar metne donusturecegiz
     ### Here,sentence is taken from user by typing, but we will take it from microphone and then convert it to text
-    text = input(">> You:")
-
+    print("1. text input\n 2. voice input")
+    n = int(input())
+    if(n==1):
+        text = input(">> You:")
+    elif(n==2):
+        text = speechToText()
+        print(">> You:", text)
+    else:
+        print("your input is wrong try")
+        break
     ######################### DO NOT CHANGE#########################
     input_ids = tokenizer.encode(text + tokenizer.eos_token, return_tensors="pt")
     bot_input_ids = torch.cat([chat_history_ids, input_ids], dim=-1) if step > 0 else input_ids
