@@ -1,6 +1,7 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import os
+import speech_recognition as sr
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 ######################### DO NOT CHANGE#########################
@@ -12,7 +13,10 @@ model = AutoModelForCausalLM.from_pretrained(model_name)
 ## for dongusunu silmeyin ##
 ## Do not remove the for loop ##
 for step in range(5):
-
+    recognizer = sr.Recognizer()
+    recognizer.energy_threshold = 300
+    text = recognizer.recognize_google(audio)
+    text = text.lower()
 
     ### Burada, cümleyi kullanıcıdan yazarak aliyoruz ama biz mikrofondan alacağız sonra tekrar metne donusturecegiz
     ### Here,sentence is taken from user by typing, but we will take it from microphone and then convert it to text
