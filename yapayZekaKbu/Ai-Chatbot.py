@@ -1,6 +1,9 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import os
+import language_tool_python  
+
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 ######################### DO NOT CHANGE#########################
@@ -14,10 +17,13 @@ model = AutoModelForCausalLM.from_pretrained(model_name)
 for step in range(5):
 
 
-    ### Burada, cümleyi kullanıcıdan yazarak aliyoruz ama biz mikrofondan alacağız sonra tekrar metne donusturecegiz
-    ### Here,sentence is taken from user by typing, but we will take it from microphone and then convert it to text
+  #Adding grammer correction 
+    my_tool = language_tool_python.LanguageTool('en-US', config={ 'cacheSize': 1000, 'pipelineCaching': True })  
     text = input(">> You:")
-
+    my_matches = my_tool.check(text)
+    # printing matches  
+    print(my_matches)  
+   
     ######################### DO NOT CHANGE#########################
     input_ids = tokenizer.encode(text + tokenizer.eos_token, return_tensors="pt")
     bot_input_ids = torch.cat([chat_history_ids, input_ids], dim=-1) if step > 0 else input_ids
