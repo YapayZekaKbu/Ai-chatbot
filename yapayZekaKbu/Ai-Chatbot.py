@@ -1,6 +1,10 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 import os
+from gtts import gTTS
+from io import BytesIO
+import pygame
+os.environ['SDL_AUDIODRIVER']='alsa'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 ######################### DO NOT CHANGE#########################
@@ -36,6 +40,18 @@ for step in range(5):
     ### Kullanici gramer duzeltme islemini belirtmedi ise, bu output degismeyecek
     ### If the user did not specify the grammar correction command, this is our output 
     output = tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True)
+    def speak(text, language='en'):
+	    mp3_fo = BytesIO()
+	    tts = gTTS(text, lang=language)
+	    tts.write_to_fp(mp3_fo)
+	    pygame.mixer.music.load(mp3_fo, 'mp3')
+	    pygame.mixer.music.play()
+	      
+    pygame.init()
+    pygame.mixer.init()
+    padding_side='left'
+    # sound.seek(0)
+    speak(output)
 
     ### Kullanici "correct my grammar" dedi ise eger, gramer duzeltme islemini yapacagiz ve islemin sonucu output'umuz olacak"
     ### when the user says "correct my grammar", we will do the grammar correction and the result of this operation will be our output"
