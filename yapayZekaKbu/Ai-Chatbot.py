@@ -39,7 +39,18 @@ for step in range(5):
 
     ### Kullanici "correct my grammar" dedi ise eger, gramer duzeltme islemini yapacagiz ve islemin sonucu output'umuz olacak"
     ### when the user says "correct my grammar", we will do the grammar correction and the result of this operation will be our output"
-   
+       def speak(text, language='en'):
+	mp3_fo = BytesIO()
+	tts = gTTS(text, lang=language)
+	tts.write_to_fp(mp3_fo)
+	pygame.mixer.music.load(mp3_fo, 'mp3')
+	pygame.mixer.music.play()
+	# return mp3_fo
+ 
+pygame.init()
+pygame.mixer.init()
+# sound.seek(0)
+speak("Python is cool always")
 
     #### Output'u metin olarak değil, ses olarak cikartacagiz
     #### We will display the output as a voice not as a text 
