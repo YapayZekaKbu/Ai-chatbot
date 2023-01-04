@@ -61,9 +61,6 @@ for step in range(4):
         break
     ######################### DO NOT CHANGE#########################
     input_ids = tokenizer.encode(text + tokenizer.eos_token, return_tensors="pt")
-    # Project Leader's edit on input_ids: modifying the code to only consider the last dialogue when generating responses. 
-    # This would allow the model to focus on generating a response based on the most recent input and may help 
-    # improve the performance of the model.
     bot_input_ids = torch.cat([chat_history_ids, input_ids], dim=-1) if step > 0 else input_ids
     chat_history_ids = model.generate(
     bot_input_ids,
