@@ -111,6 +111,7 @@ for step in range(4):
         pygame.mixer.init()
         # sound.seek(0)
         speak(output)
-        #### Output'u metin olarak değil, metin olarak da cikartacagiz
+        #### Output'u sadece ses olarak değil, metin olarak da cikartacagiz
         #### We will display the output as a voice and also as text
         print(f"DialoGPT: {output}\n")
+
